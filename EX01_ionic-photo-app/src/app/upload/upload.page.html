@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-button
+      (click)="closeModal()">
+        close
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{title | placeholder:'Create New Post'}}</ion-title>
+    <ion-buttons end>
+      <ion-button
+      [disabled]="title.length <=1 || imgPreview <= 1 "
+      (click)= "createPost()">Create Post</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item margin>
+      <ion-label position="floating">Title</ion-label>
+      <ion-input type="text" [(ngModel)]="title"></ion-input>
+    </ion-item>
+    <ion-item margin *ngIf="imgPreview" >
+      <img [src]="imgPreview" alt="" srcset="">
+    </ion-item>
+  </ion-list>
+  <ion-grid>
+    <ion-row>
+        <ion-col>
+          <ion-button (click) ="showGallery()" expand="block" icon-left>
+            <ion-icon name="photos"></ion-icon>
+            Select
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button (click) = "showCamera()" expand="block" icon-left>
+            <ion-icon name="camera"></ion-icon>
+            Camera
+          </ion-button>
+        </ion-col>
+      </ion-row>
+  </ion-grid>
+    
+</ion-content>
