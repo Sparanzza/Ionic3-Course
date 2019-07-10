@@ -1,11 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 import {  IonicPage,
           NavController,
-          NavParams,
           Slides,
           AlertController,
           LoadingController
         } from 'ionic-angular';
+import { UserProvider } from '../../providers/user/user';
 
 
 /**
@@ -26,14 +26,15 @@ export class LoginPage {
   constructor(
     private alertCtrl: AlertController,
     public navCtrl: NavController,
-    public loading: LoadingController) {
+    public loading: LoadingController,
+    public _userprovider: UserProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
     this.slides.paginationType = 'progress';
     this.slides.freeMode = false;
-
+    this.slides.lockSwipes(true);
   }
 
   presentPrompt() {
@@ -56,7 +57,6 @@ export class LoginPage {
         {
           text: 'Login',
           handler: data => {
-            console.log(data);
             this.verifyUser(data.username);
           }
         }
@@ -65,11 +65,28 @@ export class LoginPage {
     alert.present();
   }
 
-  verifyUser(clave: String){
+  verifyUser(key: String){
     let loading = this.loading.create({
       content: 'Please wait...'
     });
-    loading.present();
+
+    this._userprovider.verifyUser(key).then( user =>{
+      loading.present();
+      if (user){
+        this.slides.freeMode = false;
+        this.slides.lockSwipes(true);
+        this.slides.slideNext();
+        this.slides.freeMode = true;
+        this.slides.lockSwipes(false);
+      }else{
+        this.alertCtrl.create({
+          title: 'No user found!',
+          subTitle: 'try to insert amun-1',
+          buttons: ['OK']
+        }).present();
+      }
+
+    });
 
     setTimeout(() => {
       loading.dismiss();
