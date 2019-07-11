@@ -14,6 +14,8 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../config/firebase.config';
 
+import { IonicStorageModule } from '@ionic/storage';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -21,6 +23,7 @@ import { environment } from '../config/firebase.config';
     LoginPage
   ],
   imports: [
+    IonicStorageModule.forRoot(),
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(environment.firebase), // imports firebase/app needed for everything

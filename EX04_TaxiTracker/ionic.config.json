@@ -1,5 +1,7 @@
 {
   "name": "EX04_TaxiTracker",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular"
 }

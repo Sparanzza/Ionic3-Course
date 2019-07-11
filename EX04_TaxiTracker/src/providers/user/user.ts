@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Platform } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 /*
   Generated class for the UserProvider provider.
@@ -13,6 +15,8 @@ export class UserProvider {
   key: String;
   user: any = {};
   constructor(
+    private platform: Platform,
+    private storage:Storage,
     private afDB: AngularFirestore) {
       console.log('Hello UserProvider Provider');
   }
@@ -27,8 +31,10 @@ export class UserProvider {
           if (data){
             this.key = key;
             this.user = data;
+            this.saveStorage();
             resolve(true);
             console.log(data);
+
           }else{
             console.log("no user found");
             resolve(false);
@@ -36,6 +42,38 @@ export class UserProvider {
         }
       );
     });
+  }
+
+  saveStorage(){
+    if (this.platform.is('cordova')){
+      this.storage.set('key' , this.key);
+    }else{
+      localStorage.setItem('key', <string>this.key);
+    }
+  }
+
+  loadStorage(){
+
+    return new Promise( (resolve, reject) =>{
+      if(this.platform.is('cordova')){
+        this.storage.get('key').then(val =>{
+          if(val){
+            this.key = val;
+            resolve(true);
+          }else{
+            resolve(false);
+          }
+        });
+      }else{
+        if(localStorage.getItem('key')){
+          this.key = localStorage.getItem('key');
+          resolve(true);
+        }else{
+          resolve(false);
+        }
+      }
+    });
+
   }
 
 }
