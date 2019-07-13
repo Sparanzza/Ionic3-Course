@@ -73,7 +73,6 @@ export class UserProvider {
         }
       }
     });
-
   }
 
 }
