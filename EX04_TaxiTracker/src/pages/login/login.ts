@@ -6,6 +6,7 @@ import {  IonicPage,
           LoadingController
         } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
+import { HomePage } from '../home/home';
 
 
 /**
@@ -74,10 +75,11 @@ export class LoginPage {
       loading.present();
       if (user){
         this.slides.freeMode = false;
-        this.slides.lockSwipes(true);
-        this.slides.slideNext();
-        this.slides.freeMode = true;
         this.slides.lockSwipes(false);
+        this.slides.slideNext(100, true);
+        console.log("next");
+        this.slides.freeMode = true;
+        this.slides.lockSwipes(true);
       }else{
         this.alertCtrl.create({
           title: 'No user found!',
@@ -92,5 +94,9 @@ export class LoginPage {
       loading.dismiss();
     }, 2000);
 
+  }
+
+  loginIn(){
+    this.navCtrl.setRoot(HomePage);
   }
 }
