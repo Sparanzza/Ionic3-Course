@@ -75,4 +75,14 @@ export class UserProvider {
     });
   }
 
+  deleteUser(){
+    this.key = null;
+
+    if( this.platform.is('cordova')){
+      this.storage.remove('key');
+    }else{
+      localStorage.removeItem('key');
+    }
+  }
+
 }

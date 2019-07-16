@@ -18,6 +18,9 @@ import { IonicStorageModule } from '@ionic/storage';
 import { LocationProvider } from '../providers/location/location';
 import { Geolocation } from '@ionic-native/geolocation';
 
+// angular maps
+import { AgmCoreModule } from '@agm/core';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -30,6 +33,9 @@ import { Geolocation } from '@ionic-native/geolocation';
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(environment.firebase), // imports firebase/app needed for everything
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAeYbyPqCn7bqy8XXnmBV-n5EPFYyvVGAI'
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
