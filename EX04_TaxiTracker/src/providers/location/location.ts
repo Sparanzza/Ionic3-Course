@@ -16,9 +16,11 @@ export class LocationProvider {
     public _userProvider: UserProvider,
     private geolocation: Geolocation
   ) {
-    console.log('Hello LocationProvider Provider');
-    this.taxiDriver = db.doc(`/taxiUsers/${_userProvider.key}`);
 
+  }
+
+  initTaxiUser(){
+    this.taxiDriver = this.db.doc(`/taxiUsers/${this._userProvider.key}`);
   }
 
   initGeo(){

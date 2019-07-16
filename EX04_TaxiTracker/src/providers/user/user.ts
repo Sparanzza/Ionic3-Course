@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { Subscription } from 'rxjs';
 
 /*
   Generated class for the UserProvider provider.
@@ -14,6 +15,9 @@ export class UserProvider {
 
   key: String;
   user: any = {};
+
+  private doc:Subscription;
+
   constructor(
     private platform: Platform,
     private storage:Storage,
@@ -26,7 +30,7 @@ export class UserProvider {
     key = key.toLocaleLowerCase();
     
     return new Promise( (resolve , reject) =>{
-      this.afDB.doc(`/taxiUsers/${key}`).valueChanges().subscribe(
+      this.doc = this.afDB.doc(`/taxiUsers/${key}`).valueChanges().subscribe(
         data =>{
           if (data){
             this.key = key;
@@ -83,6 +87,7 @@ export class UserProvider {
     }else{
       localStorage.removeItem('key');
     }
-  }
 
+    this.doc.unsubscribe();
+  }
 }

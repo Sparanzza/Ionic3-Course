@@ -18,6 +18,7 @@ export class HomePage {
     public userProvider: UserProvider,
     public navCtrl: NavController) {
         locProvider.initGeo();
+        locProvider.initTaxiUser();
 
         // console.log(this.user);
         this.locProvider.taxiDriver.valueChanges()
