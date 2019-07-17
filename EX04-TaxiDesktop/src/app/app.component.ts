@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -6,7 +8,32 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
   title = 'EX04-TaxiDesktop';
-  lat: number = 51.678418;
-  lng: number = 7.809007;
+  public lat = 51.678418;
+  public lng = 7.809007;
+  taxiDrivers: TaxiDriver[] = [];
+
+  init = false;
+  constructor(db: AngularFirestore) {
+    db.collection('taxiUsers/').valueChanges()
+    .subscribe( (data: TaxiDriver[]) => {
+      this.taxiDrivers = data;
+      console.log(data);
+      // place the first point
+      if (!this.init) {
+        this.lat = data[0].lat;
+        this.lng = data[0].lng;
+        this.init = true;
+      }
+    });
+  }
+
+}
+
+interface TaxiDriver {
+  name: string;
+  clave: string;
+  lat: number;
+  lng: number;
 }
