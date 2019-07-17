@@ -1,0 +1,32 @@
+<!-- Image and text -->
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">
+    <img src="/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="" />
+    Taxi Drivers
+  </a>
+</nav>
+
+<div class="row pad-10">
+  <div class="col-8">
+    <h3>Mapa</h3>
+    <!-- this creates a google map on the page with the given lat/lng from -->
+    <!-- the component as the initial center of the map: -->
+    <agm-map [latitude]="lat" [longitude]="lng" [zoom]=14>
+      <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+    </agm-map>
+  </div>
+  <div class="col-4">
+    <h3>Taxis</h3>
+    <div class="list-group">
+      <a href="#" class="list-group-item list-group-item-action active">
+        Cras justo odio
+      </a>
+      <a href="#" class="list-group-item list-group-item-action">
+        Cras justo odio
+      </a>
+      <a href="#" class="list-group-item list-group-item-action">
+        Cras justo odio
+      </a>
+    </div>
+  </div>
+</div>
