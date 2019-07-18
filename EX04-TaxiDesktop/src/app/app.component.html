@@ -8,7 +8,7 @@
 
 <div class="row pad-10">
   <div class="col-8">
-    <h3>Mapa</h3>
+    <h3>Map <small *ngIf="followedDriver">following {{followedDriver.name}}</small></h3>
     <!-- this creates a google map on the page with the given lat/lng from -->
     <!-- the component as the initial center of the map: -->
     <agm-map [latitude]="lat" [longitude]="lng" [zoom]=13>
@@ -21,10 +21,16 @@
     <h3>Taxis</h3>
     <div class="list-group">
       <a 
+      (click)="followDriver(item)"
       class="text" *ngFor="let item of taxiDrivers"
       href="#" class="list-group-item list-group-item-action">
         {{item.name}}
       </a>
     </div>
+    <br>
+    <button 
+    *ngIf="followedDriver"
+    (click)="unfollow()"
+    class="btn btn-primary">Unfollow</button>
   </div>
 </div>

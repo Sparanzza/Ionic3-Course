@@ -13,6 +13,7 @@ export class AppComponent {
   public lat = 51.678418;
   public lng = 7.809007;
   taxiDrivers: TaxiDriver[] = [];
+  public followedDriver: TaxiDriver = null;
 
   init = false;
   constructor(db: AngularFirestore) {
@@ -26,10 +27,31 @@ export class AppComponent {
         this.lng = data[0].lng;
         this.init = true;
       }
+
+      if(this.followedDriver){
+        data.forEach( d =>{
+          if(d.clave === this.followedDriver.clave){
+            this.lat = d.lat;
+            this.lng = d.lng;
+          }
+        });
+      }
     });
   }
+  followDriver( driver: TaxiDriver){
+   console.log(driver.name);
+   this.followedDriver = driver;
+   this.lat = driver.lat;
+   this.lng = driver.lng;
+  }
 
+  unfollow(){
+    this.followedDriver = null;
+  }
 }
+
+
+
 
 interface TaxiDriver {
   name: string;
